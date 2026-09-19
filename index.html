@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#24142f">
+  <meta name="description" content="Find the Modak — a warm, family-friendly Ganesh Chaturthi maze game.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ffc15a'/%3E%3Cpath d='M32 12l4.7 12.1L49 29l-12.3 4.9L32 46l-4.7-12.1L15 29l12.3-4.9z' fill='%233b1e48'/%3E%3C/svg%3E">
+  <title>Find the Modak — A Ganesh Chaturthi Maze</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✦</div>
+        <div>
+          <h1>Find the Modak</h1>
+          <p>A festive maze adventure</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="soundButton" type="button" aria-label="Turn sound on" aria-pressed="false">♫</button>
+        <button class="icon-button" id="pauseButton" type="button" aria-label="Pause game" aria-pressed="false">Ⅱ</button>
+      </div>
+    </header>
+
+    <section class="game-card" aria-label="Find the Modak game">
+      <div class="hud">
+        <div class="hud-stat">
+          <span class="stat-label">Time left</span>
+          <strong class="stat-value timer-value" id="timerValue">60s</strong>
+        </div>
+        <div class="hud-center">
+          <div class="level-pill"><span class="level-dot"></span><span>Level <b id="levelValue">1</b> <em id="levelName">Courtyard</em></span></div>
+          <div class="progress-track" aria-label="Level progress"><span id="progressBar"></span></div>
+        </div>
+        <div class="hud-stat hud-right">
+          <span class="stat-label">Score</span>
+          <strong class="stat-value" id="scoreValue">0</strong>
+        </div>
+      </div>
+
+      <div class="game-stage">
+        <div class="stage-banner" id="stageBanner" aria-live="polite">Find the glowing modak</div>
+        <div class="maze-frame">
+          <div class="toran toran-top" aria-hidden="true"></div>
+          <div class="toran toran-bottom" aria-hidden="true"></div>
+          <div class="maze" id="maze" role="grid" aria-label="Festival maze"></div>
+          <div class="tutorial-tip" id="tutorialTip" role="status" aria-live="polite" aria-hidden="true">
+            <span class="tutorial-icon" aria-hidden="true">✦</span>
+            <span id="tutorialText"></span>
+          </div>
+        </div>
+        <div class="dpad" aria-label="Touch controls">
+          <span></span>
+          <button class="dpad-button" data-move="up" type="button" aria-label="Move up">▲</button>
+          <span></span>
+          <button class="dpad-button" data-move="left" type="button" aria-label="Move left">◀</button>
+          <button class="dpad-button dpad-center" type="button" tabindex="-1" aria-hidden="true">✦</button>
+          <button class="dpad-button" data-move="right" type="button" aria-label="Move right">▶</button>
+          <span></span>
+          <button class="dpad-button" data-move="down" type="button" aria-label="Move down">▼</button>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="game-footer">
+        <div class="legend">
+          <span><b>🐭</b> Mushika</span>
+          <span><b>🥮</b> Exit</span>
+          <span><b>🪔</b> +10 / +5s</span>
+          <span><b>🐱</b> Watch out</span>
+        </div>
+        <div class="footer-hint"><kbd>WASD</kbd> or <kbd>←↑↓→</kbd> to move</div>
+      </div>
+
+      <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <div class="modal-symbol" id="modalSymbol" aria-hidden="true">🐭</div>
+          <p class="modal-kicker" id="modalKicker">Ganesh Chaturthi • शुभ</p>
+          <h2 id="modalTitle">Find the Modak</h2>
+          <p class="modal-copy" id="modalCopy">Guide Mushika through a glowing festival pandal and find the sweet offering waiting at the exit.</p>
+
+          <div class="how-to" id="howTo">
+            <div class="how-to-row"><span class="how-to-icon">✦</span><span><strong>Explore the maze</strong> with arrow keys, WASD, the D-pad, or a swipe.</span></div>
+            <div class="how-to-row"><span class="how-to-icon">🪔</span><span>Collect diyas and flowers for <strong>+10 points and +5 seconds</strong>.</span></div>
+            <div class="how-to-row"><span class="how-to-icon">🐱</span><span>Reach the glowing <strong>modak exit</strong>. Cats send you back a few steps.</span></div>
+          </div>
+
+          <div class="start-levels" id="startLevels">
+            <span><b>5</b> levels</span><span>•</span><span>fresh maze each round</span>
+          </div>
+          <button class="primary-button" id="modalPrimaryButton" type="button">Begin the celebration</button>
+          <p class="modal-footnote" id="modalFootnote">Start in the 8 × 8 courtyard maze.</p>
+        </div>
+      </div>
+    </section>
+
+    <p class="page-note">A respectful, shape-and-icon celebration inspired by the joy of Vinayaka Chaturthi.</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

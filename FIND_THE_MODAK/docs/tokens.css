@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@500;600;700&display=swap");
+
+:root {
+  --ds-night: #24142f;
+  --ds-night-deep: #170d24;
+  --ds-plum: #3b1e48;
+  --ds-plum-light: #5a2d62;
+  --ds-saffron: #f28c28;
+  --ds-gold: #ffc15a;
+  --ds-rose: #ef6075;
+  --ds-cream: #fff1c8;
+  --ds-ink: #2b1934;
+  --ds-muted: #bfa8c7;
+  --ds-copy-soft: #d8c0d5;
+  --ds-line: rgba(255, 241, 200, .15);
+  --ds-line-strong: rgba(255, 193, 90, .29);
+  --ds-surface: rgba(30, 15, 42, .72);
+  --ds-surface-raised: rgba(69, 33, 78, .58);
+  --ds-surface-inset: rgba(23, 13, 36, .25);
+
+  --ds-font-display: "Baloo 2", cursive;
+  --ds-font-body: "DM Sans", system-ui, sans-serif;
+  --ds-text-xs: 10px;
+  --ds-text-sm: 11px;
+  --ds-text-body: 14px;
+  --ds-text-lg: 26px;
+  --ds-text-display: clamp(34px, 8vw, 51px);
+
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 9px;
+  --ds-radius-lg: 14px;
+  --ds-radius-xl: 22px;
+  --ds-radius-card: 25px;
+  --ds-radius-pill: 999px;
+
+  --ds-shadow-button: 0 6px 0 #b75a27, 0 12px 25px rgba(242, 140, 40, .16);
+  --ds-shadow-panel: 0 20px 80px rgba(9, 3, 14, .35);
+  --ds-shadow-modal: 0 24px 80px rgba(10, 3, 15, .42);
+  --ds-shadow-glow: 0 0 28px rgba(255, 193, 90, .18);
+
+  --ds-motion-fast: 150ms;
+  --ds-motion-move: 170ms;
+  --ds-motion-base: 200ms;
+  --ds-motion-reveal: 300ms;
+  --ds-ease-standard: cubic-bezier(.22, .75, .28, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ds-motion-fast: 1ms;
+    --ds-motion-move: 1ms;
+    --ds-motion-base: 1ms;
+    --ds-motion-reveal: 1ms;
+  }
+}

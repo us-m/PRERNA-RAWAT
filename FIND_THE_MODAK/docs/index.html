@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#24142f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ffc15a'/%3E%3Cpath d='M32 12l4.7 12.1L49 29l-12.3 4.9L32 46l-4.7-12.1L15 29l12.3-4.9z' fill='%233b1e48'/%3E%3C/svg%3E">
+  <title>Find the Modak — Design System</title>
+  <link rel="stylesheet" href="components.css">
+</head>
+<body class="ds-body">
+  <main class="ds-shell">
+    <header class="ds-header">
+      <div>
+        <p class="ds-kicker">Find the Modak · Design system</p>
+        <h1 class="ds-title">A glowing festival<br>toolkit.</h1>
+        <p class="ds-intro">
+          The visual language extracted from the maze game: welcoming plum
+          surfaces, saffron celebration, rose warnings, friendly type, and
+          compact patterns that keep play in focus.
+        </p>
+      </div>
+      <div class="ds-mark" aria-hidden="true">✦</div>
+    </header>
+
+    <section class="ds-section" aria-labelledby="colors-title">
+      <div class="ds-section-heading">
+        <h2 id="colors-title">Color language</h2>
+        <p>Night surfaces · warm action · clear states</p>
+      </div>
+      <div class="ds-panel ds-panel-pad">
+        <div class="ds-swatch-grid">
+          <div class="ds-swatch" style="--swatch: var(--ds-night-deep)"><strong>Night deep</strong><span>#170D24 · canvas</span></div>
+          <div class="ds-swatch" style="--swatch: var(--ds-plum)"><strong>Plum</strong><span>#3B1E48 · surface</span></div>
+          <div class="ds-swatch ds-swatch--light" style="--swatch: var(--ds-gold)"><strong>Gold</strong><span>#FFC15A · focus / reward</span></div>
+          <div class="ds-swatch ds-swatch--light" style="--swatch: var(--ds-saffron)"><strong>Saffron</strong><span>#F28C28 · action</span></div>
+          <div class="ds-swatch" style="--swatch: var(--ds-rose)"><strong>Rose</strong><span>#EF6075 · warning</span></div>
+          <div class="ds-swatch ds-swatch--light" style="--swatch: var(--ds-cream)"><strong>Cream</strong><span>#FFF1C8 · primary text</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-section" aria-labelledby="type-title">
+      <div class="ds-section-heading">
+        <h2 id="type-title">Type and hierarchy</h2>
+        <p>Baloo 2 for joy · DM Sans for clarity</p>
+      </div>
+      <div class="ds-grid">
+        <div class="ds-panel ds-panel-pad ds-span-8">
+          <p class="ds-label">Display / 800</p>
+          <p class="ds-type-display">Find the Modak</p>
+          <p class="ds-type-body">Warm, rounded display lettering gives the experience a distinct festival identity while utility copy stays direct and readable.</p>
+        </div>
+        <div class="ds-panel ds-panel-pad ds-span-4">
+          <p class="ds-label">Utility stat</p>
+          <div class="ds-stat">
+            <strong>60s</strong>
+            <span class="ds-label">Time left</span>
+          </div>
+          <div style="height: 18px"></div>
+          <p class="ds-label">Body / 14px</p>
+          <p class="ds-type-body">Short, useful guidance with generous line height.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-section" aria-labelledby="controls-title">
+      <div class="ds-section-heading">
+        <h2 id="controls-title">Controls and status</h2>
+        <p>One clear action, quiet support, visible state</p>
+      </div>
+      <div class="ds-grid">
+        <div class="ds-panel ds-panel-pad ds-span-6">
+          <p class="ds-label">Actions</p>
+          <div class="ds-button-row" style="margin-top: 14px">
+            <button class="ds-button ds-button--primary" type="button">Begin the celebration</button>
+            <button class="ds-button ds-button--quiet" type="button">Pause</button>
+            <button class="ds-button ds-button--danger" type="button">Retry</button>
+            <button class="ds-icon-button" type="button" aria-label="Toggle sound">♫</button>
+          </div>
+        </div>
+        <div class="ds-panel ds-panel-pad ds-span-6">
+          <p class="ds-label">Level status</p>
+          <div style="margin: 14px 0 16px">
+            <span class="ds-pill"><span class="ds-dot"></span>Level 3 <em style="font-style: normal; opacity: .75">Pandal paths</em></span>
+          </div>
+          <div class="ds-progress" aria-label="Level progress"><span data-progress style="width: 62%"></span></div>
+          <div class="ds-button-row" style="justify-content: space-between; margin-top: 10px">
+            <span class="ds-label"><span data-progress-value>62%</span> complete</span>
+            <button class="ds-button ds-button--quiet" data-progress-button type="button">Advance</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-section" aria-labelledby="feedback-title">
+      <div class="ds-section-heading">
+        <h2 id="feedback-title">Feedback and motion</h2>
+        <p>Lightweight cues for play, progress, and danger</p>
+      </div>
+      <div class="ds-grid">
+        <div class="ds-panel ds-panel-pad ds-span-8">
+          <div class="ds-callout">
+            <span class="ds-callout-icon" aria-hidden="true">✦</span>
+            <span>Use contextual guidance to teach the next move without blocking the player’s path.</span>
+          </div>
+          <div class="ds-button-row" style="justify-content: space-between; margin-top: 26px">
+            <div class="ds-motion-demo" aria-label="Motion sample"></div>
+            <div style="text-align: right">
+              <p class="ds-label">Movement cue</p>
+              <p class="ds-type-body" style="margin-top: 5px">170ms ease-out · subtle bob · arrival bounce</p>
+            </div>
+          </div>
+        </div>
+        <div class="ds-panel ds-panel-pad ds-span-4">
+          <div class="ds-stat">
+            <strong data-demo-timer>60s</strong>
+            <span class="ds-label">Timer state</span>
+          </div>
+          <button class="ds-button ds-button--quiet" data-warning-button type="button" style="margin-top: 18px">Show warning</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ds-footer">
+      Extracted from the current Find the Modak HTML, CSS, and JavaScript. This reference page does not alter the game.
+    </footer>
+  </main>
+  <script src="showcase.js"></script>
+</body>
+</html>
