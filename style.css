@@ -147,6 +147,7 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 }
 .cell.player { background: rgba(242,140,40,.2); }
 .cell.goal { background: rgba(255,193,90,.13); animation: goalGlow 1.3s ease-in-out infinite alternate; }
+.cell.ganesha-goal { background: rgba(255,209,102,.18); box-shadow: inset 0 0 18px rgba(255,209,102,.18); }
 .cell.collectible { background: rgba(239,96,117,.1); }
 .cell.spark { background: rgba(239,96,117,.22); animation: sparkFlash .4s ease-in-out infinite alternate; }
 @keyframes goalGlow { to { background: rgba(255,193,90,.3); } }
@@ -155,6 +156,7 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 .cell.player .cell-content { animation: mouseBob .7s ease-in-out infinite alternate; }
 @keyframes mouseBob { to { transform: translateY(-2px); } }
 .cell.goal .cell-content { font-size: clamp(16px, 4vw, 30px); filter: drop-shadow(0 0 7px rgba(255,193,90,.95)); }
+.cell.ganesha-goal .cell-content { font-size: clamp(20px, 4.8vw, 34px); filter: drop-shadow(0 0 12px rgba(255,209,102,.9)); }
 .cell.cat .cell-content { animation: catPeek .8s ease-in-out infinite alternate; }
 @keyframes catPeek { to { transform: rotate(-7deg) scale(1.06); } }
 .cell.spark .cell-content { color: var(--gold); font-size: clamp(11px, 2.7vw, 21px); }

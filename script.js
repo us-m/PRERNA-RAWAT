@@ -184,6 +184,18 @@
     return distances;
   }
 
+  function isFinalLevel() {
+    return currentLevel === LEVELS.length - 1;
+  }
+
+  function goalDisplaySymbol() {
+    return isFinalLevel() ? "🛕" : "🥮";
+  }
+
+  function goalLabel() {
+    return isFinalLevel() ? "Ganesha" : "modak exit";
+  }
+
   function chooseLevelItems(config) {
     const distances = distanceMap(startCell);
     const allCells = [];
@@ -230,7 +242,8 @@
         r: cell.r, c: cell.c,
         previous: null,
         direction: Math.random() > .5 ? 1 : -1,
-        moveIn: 1.3 + Math.random() * .8
+        moveIn: 1.3 + Math.random() * .8,
+        wanderTime: .8 + Math.random() * 1.4
       });
     }
   }
@@ -467,22 +480,81 @@
     if (before !== sparks.length) renderMaze();
   }
 
+  function seesPlayer(cat) {
+    if (cat.r === player.r) {
+      const minC = Math.min(cat.c, player.c);
+      const maxC = Math.max(cat.c, player.c);
+      for (let c = minC + 1; c < maxC; c++) {
+        const cell = maze[cat.r]?.[c];
+        if (!cell) return false;
+        const wallKey = cat.c < player.c ? "right" : "left";
+        if (maze[cat.r]?.[c - 1]?.walls[wallKey]) return false;
+      }
+      return true;
+    }
+
+    if (cat.c === player.c) {
+      const minR = Math.min(cat.r, player.r);
+      const maxR = Math.max(cat.r, player.r);
+      for (let r = minR + 1; r < maxR; r++) {
+        const cell = maze[r]?.[cat.c];
+        if (!cell) return false;
+        const wallKey = cat.r < player.r ? "bottom" : "top";
+        if (maze[r - 1]?.[cat.c]?.walls[wallKey]) return false;
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  function chooseCatMove(cat, chasePlayer) {
+    const choices = availableNeighbors(cat).filter(cell => {
+      const occupiedByAnotherCat = cats.some(other => other !== cat && sameCell(other, cell));
+      return !sameCell(cell, startCell) && !sameCell(cell, goal) && !isSparkBlocked(cell) && !occupiedByAnotherCat;
+    });
+
+    if (!choices.length) return null;
+
+    if (!chasePlayer) {
+      const preferred = choices.filter(cell => {
+        const dirMatch = cat.previous && cell.r === cat.previous.r && cell.c === cat.previous.c;
+        return !dirMatch || Math.random() < .6;
+      });
+      return preferred[Math.floor(Math.random() * preferred.length)] || choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    let next = choices[0];
+    let bestDistance = Number.POSITIVE_INFINITY;
+    for (const option of choices) {
+      const distance = Math.abs(option.r - player.r) + Math.abs(option.c - player.c);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        next = option;
+      }
+    }
+    return next;
+  }
+
   function moveCats(dt) {
     pruneSparks();
     for (const cat of cats) {
       cat.moveIn -= dt;
       if (cat.moveIn > 0) continue;
-      const choices = availableNeighbors(cat).filter(cell =>
-        !sameCell(cell, startCell) && !sameCell(cell, goal) && !isSparkBlocked(cell)
-      );
-      if (choices.length) {
-        const next = choices[Math.floor(Math.random() * choices.length)];
+
+      const canSeePlayer = seesPlayer(cat);
+      const nextCell = chooseCatMove(cat, canSeePlayer);
+
+      if (nextCell) {
         cat.previous = { r: cat.r, c: cat.c };
-        cat.r = next.r;
-        cat.c = next.c;
+        cat.r = nextCell.r;
+        cat.c = nextCell.c;
       }
-      cat.moveIn = .95 + Math.random() * .8;
-      if (!movement && sameCell(cat, player)) bumpPlayerBack();
+
+      if (canSeePlayer && !movement && sameCell(cat, player)) bumpPlayerBack();
+
+      cat.moveIn = canSeePlayer ? .7 + Math.random() * .5 : cat.wanderTime;
+      cat.wanderTime = .9 + Math.random() * 1.4;
     }
     renderMaze();
   }
@@ -627,6 +699,7 @@
         for (const wall of WALLS) if (cell.walls[wall]) classes.push(`wall-${wall}`);
         if (sameCell(cell, player)) classes.push("player");
         if (sameCell(cell, goal)) classes.push("goal");
+        if (isFinalLevel() && sameCell(cell, goal)) classes.push("ganesha-goal");
         if (collectibles.some(item => sameCell(item, cell))) classes.push("collectible");
         if (cats.some(cat => sameCell(cat, cell))) classes.push("cat");
         if (isSparkBlocked(cell)) classes.push("spark");
@@ -636,7 +709,7 @@
         const content = document.createElement("span");
         content.className = "cell-content";
         if (sameCell(cell, player)) content.textContent = "";
-        else if (sameCell(cell, goal)) content.textContent = "🥮";
+        else if (sameCell(cell, goal)) content.textContent = goalDisplaySymbol();
         else {
           const item = collectibles.find(candidate => sameCell(candidate, cell));
           const cat = cats.find(candidate => sameCell(candidate, cell));
@@ -653,7 +726,7 @@
 
   function getCellLabel(cell) {
     if (sameCell(cell, player)) return "Mushika, your position";
-    if (sameCell(cell, goal)) return "Glowing modak exit";
+    if (sameCell(cell, goal)) return isFinalLevel() ? "Ganesha shrine" : "Glowing modak exit";
     if (cats.some(cat => sameCell(cat, cell))) return "Curious cat obstacle";
     if (collectibles.some(item => sameCell(item, cell))) return "Offering collectible";
     if (isSparkBlocked(cell)) return "Temporary firecracker spark";
@@ -682,15 +755,15 @@
 
   function showLevelComplete(bonus) {
     modalBackdrop.classList.remove("hidden");
-    modalSymbol.textContent = "🥮";
-    modalKicker.textContent = `Level ${currentLevel + 1} complete • शुभ`;
-    modalTitle.textContent = currentLevel === LEVELS.length - 1 ? "The offering is ready!" : "Sweet progress!";
-    modalCopy.textContent = currentLevel === LEVELS.length - 1
-      ? "You found the final modak and completed the whole pandal journey."
+    modalSymbol.textContent = isFinalLevel() ? "🛕" : "🥮";
+    modalKicker.textContent = isFinalLevel() ? "Level 5 complete • Ganesh Chaturthi" : `Level ${currentLevel + 1} complete • शुभ`;
+    modalTitle.textContent = isFinalLevel() ? "Mushika reached Ganesha!" : "Sweet progress!";
+    modalCopy.textContent = isFinalLevel()
+      ? "You reached the divine blessing of Ganesha and completed the full festival journey."
       : "You found the glowing modak. The next part of the celebration awaits.";
     howTo.style.display = "none";
     startLevels.style.display = "none";
-    modalPrimaryButton.textContent = currentLevel === LEVELS.length - 1 ? "See the final blessing" : "Next level";
+    modalPrimaryButton.textContent = isFinalLevel() ? "See the final blessing" : "Next level";
     modalFootnote.textContent = `+${bonus} time bonus • Score ${score}`;
     modalPrimaryButton.onclick = nextLevel;
   }
